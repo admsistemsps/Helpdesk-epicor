@@ -23,10 +23,6 @@ return new class extends Migration
             $table->foreign('department_id')->references('id')->on('master_departments')->onDelete('cascade');
             $table->foreign('division_id')->references('id')->on('master_divisions')->onDelete('cascade');
         });
-
-        Schema::table(('ticket_heads'), function (Blueprint $table) {
-            $table->foreign('menu_id')->references('id')->on('master_menus')->onDelete('cascade');
-        });
     }
 
     /**

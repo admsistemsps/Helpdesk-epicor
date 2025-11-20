@@ -30,6 +30,8 @@ return new class extends Migration
             $table->foreign('ticket_head_id')->references('id')->on('ticket_heads')->onDelete('cascade');
             $table->timestamps();
             $table->softDeletes();
+
+            $table->foreign('priority_id')->references('id')->on('ticket_priorities')->onDelete('cascade');
         });
     }
 

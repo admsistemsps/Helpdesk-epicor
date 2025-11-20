@@ -18,10 +18,6 @@ return new class extends Migration
             $table->timestamps();
             $table->softDeletes();
         });
-
-        Schema::table('ticket_assigns', function (Blueprint $table) {
-            $table->foreign('priority_id')->references('id')->on('ticket_priorities')->onDelete('cascade');
-        });
     }
 
     /**
