@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('name');
             $table->string('description');
+            $table->string('placeholder')->nullable();
             $table->unsignedBigInteger('menu_id')->nullable();
 
             $table->foreign('menu_id')->references('id')->on('master_menus');

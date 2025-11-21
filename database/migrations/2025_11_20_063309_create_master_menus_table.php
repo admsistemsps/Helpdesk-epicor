@@ -15,8 +15,8 @@ return new class extends Migration
             $table->id();
             $table->string('name');
             $table->string('description');
-            $table->unsignedBigInteger('department_id');
-            $table->unsignedBigInteger('division_id');
+            $table->unsignedBigInteger('department_id')->nullable();
+            $table->unsignedBigInteger('division_id')->nullable();
             $table->timestamps();
             $table->softDeletes();
 

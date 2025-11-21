@@ -9,8 +9,8 @@ use App\Models\User;
 use App\Models\MasterSubMenu;
 use App\Models\TicketApproval;
 use App\Models\TicketDetail;
-use App\Models\TicketDetailLog;
-use App\Models\TicketLog;
+use App\Models\LogTicketDetail;
+use App\Models\LogTicketHead;
 use App\Models\TicketAssign;
 use App\Models\TicketPriority;
 use App\Models\TicketApprovalRule;
@@ -243,6 +243,7 @@ class TicketHeadController extends Controller
 
             // Create Ticket
             $ticket = TicketHead::create([
+                'site_id'      => $user->master_site_id,
                 'nomor_fuhd'   => $nomorFuhd,
                 'menu_id'      => $request->menu_id,
                 'sub_menu_id'  => $request->sub_menu_id,
@@ -265,7 +266,7 @@ class TicketHeadController extends Controller
                     'created_date'   => now(),
                 ]);
 
-                TicketDetailLog::create([
+                LogTicketDetail::create([
                     'ticket_detail_id' => $detail->id,
                     'ticket_head_id'   => $ticket->id,
                     'ticket_line'      => $detail->ticket_line,
@@ -281,7 +282,7 @@ class TicketHeadController extends Controller
                 $remarks[] = "Line {$detail->ticket_line}: nomor [{$detail->nomor}] dengan alasan {$detail->reason} [$detail->desc_before => $detail->desc_after]";
             }
 
-            TicketLog::create([
+            LogTicketHead::create([
                 'ticket_head_id' => $ticket->id,
                 'user_id'        => $user->id,
                 'action'         => 'Ticket Created',
@@ -294,7 +295,7 @@ class TicketHeadController extends Controller
                     if ($file->isValid()) {
                         $path = $file->store('attachments', 'public');
                         \App\Models\TicketAttachment::create([
-                            'ticket_id' => $ticket->id,
+                            'ticket_head_id' => $ticket->id,
                             'file_name' => $file->getClientOriginalName(),
                             'file_path' => $path,
                         ]);
@@ -493,7 +494,7 @@ class TicketHeadController extends Controller
             // Simpan detail lama di log
             $oldDetails = TicketDetail::where('ticket_head_id', $ticket->id)->get();
             foreach ($oldDetails as $old) {
-                TicketDetailLog::create([
+                LogTicketDetail::create([
                     'ticket_detail_id' => $old->id,
                     'ticket_head_id'   => $old->ticket_head_id,
                     'ticket_line'      => $old->ticket_line,

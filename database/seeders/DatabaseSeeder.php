@@ -2,28 +2,311 @@
 
 namespace Database\Seeders;
 
-use App\Models\User;
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\Hash;
+use App\Models\MasterDepartment;
+use App\Models\MasterDivision;
+use App\Models\MasterRole;
+use App\Models\MasterPosition;
+use App\Models\User;
+use App\Models\MasterMenu;
+use App\Models\MasterSubMenu;
+use App\Models\MasterSite;
+use App\Models\TicketPriority;
+
 
 class DatabaseSeeder extends Seeder
 {
-    use WithoutModelEvents;
-
-    /**
-     * Seed the application's database.
-     */
     public function run(): void
     {
-        // User::factory(10)->create();
+        // ========================
+        // Departments
+        // ========================
+        $departments = [
+            ['code' => 'PTSI', 'name' => 'Pengembangan Teknologi dan Sistem Informasi', 'description' => 'Departemen yang mengelola teknologi dan sistem informasi.'],
+            ['code' => 'SCM', 'name' => 'Supply Chain Management', 'description' => 'Departemen yang mengelola rantai pasok perusahaan.'],
+            ['code' => 'FAC', 'name' => 'Finance and Accounting', 'description' => 'Departemen yang mengelola keuangan dan akuntansi.'],
+            ['code' => 'PRC', 'name' => 'Procurement', 'description' => 'Departemen yang mengelola pengadaan barang dan jasa.'],
+            ['code' => 'SNM', 'name' => 'Sales and Marketing', 'description' => 'Departemen yang menawarkan dan menjual produk.'],
+        ];
 
-        User::factory()->create([
-            'username' => 'spsadmin',
-            'name' => 'JM PTSI SPS',
-            'email' => 'spsadmin@gmail.com',
-            'password' => Hash::make('SuperAdmin123!'),
-            'status' => 'active',
-        ]);
+        foreach ($departments as $dept) {
+            MasterDepartment::updateOrCreate(
+                ['code' => $dept['code']],
+                $dept
+            );
+        }
+
+        // ========================
+        // Divisions
+        // ========================
+        $divisions = [
+            ['code' => 'WRH', 'name' => 'Warehouse', 'department_id' => 2],
+            ['code' => 'PRC', 'name' => 'Purchasing', 'department_id' => 4],
+            ['code' => 'SNM', 'name' => 'Sales', 'department_id' => 5],
+            ['code' => 'LOG', 'name' => 'Logistik', 'department_id' => 2],
+        ];
+
+        foreach ($divisions as $div) {
+            MasterDivision::updateOrCreate(
+                ['code' => $div['code']],
+                $div
+            );
+        }
+
+        // ========================
+        // Roles
+        // ========================
+        $roles = [
+            ['name' => 'Super Admin', 'description' => 'Super Admin', 'level' => 99],
+            ['name' => 'Admin Sistem', 'description' => 'Admin Sistem', 'level' => 88],
+            ['name' => 'User', 'description' => 'User', 'level' => 1],
+            ['name' => 'JM', 'description' => 'JM', 'level' => 2],
+        ];
+
+        foreach ($roles as $role) {
+            MasterRole::updateOrCreate(
+                ['name' => $role['name']],
+                $role
+            );
+        }
+
+        // ========================
+        // Positions
+        // ========================
+        $positions = [
+            ['name' => 'Admin Gudang Sparepart', 'division_id' => 1, 'department_id' => 2, 'jabatan' => 'Staff/Admin', 'level' => 1],
+            ['name' => 'SPV Gudang', 'division_id' => 1, 'department_id' => 2, 'jabatan' => 'Supervisor', 'level' => 2],
+            ['name' => 'Manajer Gudang', 'division_id' => null, 'department_id' => 2, 'jabatan' => 'Manajer', 'level' => 3],
+            ['name' => 'JM Finance', 'division_id' => null, 'department_id' => 3, 'jabatan' => 'Junior Manajer', 'level' => 9],
+            ['name' => 'Admin Sistem', 'division_id' => null, 'department_id' => 1, 'jabatan' => 'Staff/Admin', 'level' => 1],
+            ['name' => 'IT Dev', 'division_id' => null, 'department_id' => 1, 'jabatan' => 'Staff/Admin', 'level' => 1],
+            ['name' => 'Manajer PTSI', 'division_id' => null, 'department_id' => 1, 'jabatan' => 'Manajer', 'level' => 3],
+            ['name' => 'SPV Purchasing', 'division_id' => 2, 'department_id' => 4, 'jabatan' => 'Supervisor', 'level' => 2],
+            ['name' => 'Staff Purchasing', 'division_id' => 2, 'department_id' => 4, 'jabatan' => 'Staff/Admin', 'level' => 1],
+            ['name' => 'SPV Sales', 'division_id' => 3, 'department_id' => 5, 'jabatan' => 'Supervisor', 'level' => 2],
+            ['name' => 'Staff Sales', 'division_id' => 3, 'department_id' => 5, 'jabatan' => 'Staff/Admin', 'level' => 1],
+            ['name' => 'SPV Logistik', 'division_id' => 4, 'department_id' => 2, 'jabatan' => 'Supervisor', 'level' => 2],
+            ['name' => 'Staff Logistik', 'division_id' => 4, 'department_id' => 2, 'jabatan' => 'Staff/Admin', 'level' => 1],
+        ];
+
+        foreach ($positions as $index => $pos) {
+            MasterPosition::updateOrCreate(
+                ['name' => $pos['name']],
+                $pos
+            );
+        }
+
+        // ========================
+        // Users
+        // ========================
+        $site = [
+            [
+                'code' => 'KDR',
+                'name' => 'KEDIRI',
+                'address' => 'Jl. Dusun Bringin No.300, Bringin, Wonosari, Kec. Pagu, Kabupaten Kediri, Jawa Timur 64183',
+            ],
+            [
+                'code' => 'NGW',
+                'name' => 'NGAWI',
+                'address' => 'Jl. Dusun Bringin No.300, Bringin, Wonosari, Kec. Pagu, Kabupaten Kediri, Jawa Timur 64183',
+            ],
+            [
+                'code' => 'SNG',
+                'name' => 'SUBANG',
+                'address' => 'Jl. Dusun Bringin No.300, Bringin, Wonosari, Kec. Pagu, Kabupaten Kediri, Jawa Timur 64183',
+            ]
+        ];
+
+        foreach ($site as $site) {
+            MasterSite::updateOrCreate(
+                ['code' => $site['code']],
+                $site
+            );
+        }
+
+        $users = [
+            [
+                'username' => 'spsadmin',
+                'name' => 'JM PTSI SPS',
+                'email' => 'spsadmin@gmail.com',
+                'password' => Hash::make('SuperAdmin123!'),
+                'status' => 'active',
+                'role_id' => 1, // Super Admin
+                'position_id' => 7, // Manajer PTSI
+                'division_id' => null,
+                'department_id' => 1,
+                'master_site_id' => 1,
+            ],
+            [
+                'username' => 'scm001',
+                'name' => 'User SCM 001',
+                'email' => 'scm001@gmail.com',
+                'password' => Hash::make('admin123'),
+                'status' => 'active',
+                'role_id' => 3, // User
+                'position_id' => 1, // Admin Gudang Sparepart
+                'division_id' => 1,
+                'department_id' => 2,
+                'master_site_id' => 1,
+            ],
+            [
+                'username' => 'scm002',
+                'name' => 'User SCM 002',
+                'email' => 'scm002@gmail.com',
+                'password' => Hash::make('admin123'),
+                'status' => 'active',
+                'role_id' => 3,
+                'position_id' => 2, // SPV Gudang
+                'division_id' => 1,
+                'department_id' => 2,
+                'master_site_id' => 1,
+            ],
+            [
+                'username' => 'scm003',
+                'name' => 'User SCM 003',
+                'email' => 'scm003@gmail.com',
+                'password' => Hash::make('admin123'),
+                'status' => 'active',
+                'role_id' => 3,
+                'position_id' => 3, // Manajer Gudang
+                'division_id' => null,
+                'department_id' => 2,
+                'master_site_id' => 1,
+            ],
+            [
+                'username' => 'scm004',
+                'name' => 'Staff Log User SCM 004',
+                'email' => 'scm004@gmail.com',
+                'password' => Hash::make('admin123'),
+                'status' => 'active',
+                'role_id' => 3,
+                'position_id' => 13,
+                'division_id' => 4,
+                'department_id' => 2,
+                'master_site_id' => 1,
+            ],
+            [
+                'username' => 'scm005',
+                'name' => 'SPV Log User SCM 004',
+                'email' => 'scm005@gmail.com',
+                'password' => Hash::make('admin123'),
+                'status' => 'active',
+                'role_id' => 3,
+                'position_id' => 12,
+                'division_id' => 4,
+                'department_id' => 2,
+                'master_site_id' => 1,
+            ],
+            [
+                'username' => 'snm001',
+                'name' => 'SPV Sales User SNM 001',
+                'email' => 'snm001@gmail.com',
+                'password' => Hash::make('admin123'),
+                'status' => 'active',
+                'role_id' => 3,
+                'position_id' => 10,
+                'division_id' => 3,
+                'department_id' => 5,
+                'master_site_id' => 1,
+            ],
+            [
+                'username' => 'fac001',
+                'name' => 'JM FAC',
+                'email' => 'fac001@gmail.com',
+                'password' => Hash::make('admin123'),
+                'status' => 'active',
+                'role_id' => 4, // JM
+                'position_id' => 4, // JM Finance
+                'division_id' => null,
+                'department_id' => 3,
+                'master_site_id' => 1,
+            ],
+            [
+                'username' => 'sis003',
+                'name' => 'ADMIN SIS 003',
+                'email' => 'sis003@gmail.com',
+                'password' => Hash::make('admin123'),
+                'status' => 'active',
+                'role_id' => 2, // Admin Sistem
+                'position_id' => 5, // Admin Sistem
+                'division_id' => null,
+                'department_id' => 1,
+                'master_site_id' => 1,
+            ],
+        ];
+
+        foreach ($users as $user) {
+            User::updateOrCreate(
+                ['email' => $user['email']],
+                $user
+            );
+        }
+
+        $menus = [
+            [
+                'name' => 'Purchase Order Entry',
+                'description' => 'Pesanan Pembelian',
+            ],
+            [
+                'name' => 'Customer Shipment Entry',
+                'description' => 'Pengiriman Customer',
+            ],
+
+        ];
+
+        foreach ($menus as $menu) {
+            MasterMenu::updateOrCreate(
+                ['name' => $menu['name']],
+                $menu
+            );
+        }
+
+        $subMenus = [
+            [
+                'name' => 'Revisi PR',
+                'description' => 'Revisi Permintaan',
+                'menu_id' => 1,
+            ],
+            [
+                'name' => 'Unshipped DO',
+                'description' => 'Batalkan Kiriman',
+                'menu_id' => 2,
+            ],
+        ];
+
+        foreach ($subMenus as $subMenu) {
+            MasterSubMenu::updateOrCreate(
+                ['name' => $subMenu['name']],
+                $subMenu
+            );
+        }
+
+        $priority = [
+            [
+                'name' => 'Urgent',
+                'sla_hours' => 4
+            ],
+            [
+                'name' => 'High',
+                'sla_hours' => 8
+            ],
+            [
+                'name' => 'Medium',
+                'sla_hours' => 24
+            ],
+            [
+                'name' => 'Low',
+                'sla_hours' => 72
+            ],
+        ];
+
+        foreach ($priority as $priority) {
+            TicketPriority::updateOrCreate(
+                ['name' => $priority['name']],
+                $priority
+            );
+        }
+        $this->command->info('Seeder selesai: Departments, Divisions, Roles, Positions, Users.');
     }
 }

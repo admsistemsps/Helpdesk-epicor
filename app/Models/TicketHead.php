@@ -14,6 +14,7 @@ class TicketHead extends Model
     protected $dates = ['deleted_at'];
 
     protected $fillable = [
+        'site_id',
         'nomor_fuhd',
         'slug',
         'reason',
@@ -151,7 +152,7 @@ class TicketHead extends Model
 
     public function logs()
     {
-        return $this->hasMany(TicketLog::class, 'ticket_head_id');
+        return $this->hasMany(LogTicketHead::class, 'ticket_head_id');
     }
 
     public function ticketAssigns()

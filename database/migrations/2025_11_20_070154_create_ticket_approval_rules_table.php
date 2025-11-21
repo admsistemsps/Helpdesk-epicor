@@ -18,6 +18,7 @@ return new class extends Migration
             $table->unsignedBigInteger('division_id')->nullable();
             $table->unsignedBigInteger('position_id')->nullable();
             $table->decimal('level');
+            $table->decimal('sequence', 6, 2)->nullable();
             $table->boolean('is_mandatory');
             $table->boolean('is_final');
             $table->timestamps();

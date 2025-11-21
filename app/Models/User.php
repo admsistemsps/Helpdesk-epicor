@@ -57,4 +57,33 @@ class User extends Authenticatable
             'password' => 'hashed',
         ];
     }
+
+    public function role()
+    {
+        return $this->belongsTo(MasterRole::class);
+    }
+    public function position()
+    {
+        return $this->belongsTo(MasterPosition::class);
+    }
+    public function division()
+    {
+        return $this->belongsTo(MasterDivision::class);
+    }
+    public function department()
+    {
+        return $this->belongsTo(MasterDepartment::class);
+    }
+    public function site()
+    {
+        return $this->belongsTo(MasterSite::class, 'master_site_id');
+    }
+
+    /** Helper */
+    public function isSuperAdmin(): bool
+    {
+        $superNames = ['Admin Sistem', 'Manager IT', 'IT DEV'];
+        return in_array(optional($this->role)->name, $superNames)
+            || (bool)($this->is_super_admin ?? false);
+    }
 }
