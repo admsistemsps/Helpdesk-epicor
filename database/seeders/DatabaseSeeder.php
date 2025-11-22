@@ -13,6 +13,9 @@ use App\Models\MasterMenu;
 use App\Models\MasterSubMenu;
 use App\Models\MasterSite;
 use App\Models\TicketPriority;
+use App\Models\KbCategory;
+use App\Models\KbArticle;
+use Illuminate\Support\Str;
 
 
 class DatabaseSeeder extends Seeder
@@ -307,6 +310,32 @@ class DatabaseSeeder extends Seeder
                 $priority
             );
         }
-        $this->command->info('Seeder selesai: Departments, Divisions, Roles, Positions, Users.');
+        $categories = [
+            ['name' => 'Panduan Langkah-demi-Langkah', 'slug' => 'how-to-guides', 'description' => 'Tutorial step-by-step untuk pengguna', 'sort_order' => 1],
+            ['name' => 'Pemecahan Masalah', 'slug' => 'troubleshooting', 'description' => 'Solusi masalah umum di aplikasi', 'sort_order' => 2],
+            ['name' => 'Pertanyaan yang Sering Diajukan (FAQ)', 'slug' => 'faq', 'description' => 'Kumpulan pertanyaan & jawaban', 'sort_order' => 3],
+            ['name' => 'Informasi & Kebijakan', 'slug' => 'informasi-kebijakan', 'description' => 'Standar operasional, kebijakan, dan info', 'sort_order' => 4],
+        ];
+
+
+        foreach ($categories as $c) {
+            $cat = KbCategory::updateOrCreate(['slug' => $c['slug']], $c);
+
+
+            // Contoh artikel awal per kategori (boleh dihapus/ubah)
+            KbArticle::updateOrCreate(
+                ['slug' => Str::slug($c['slug'] . '-contoh-artikel')],
+                [
+                    'category_id' => $cat->id,
+                    'title' => 'Contoh Artikel: ' . $c['name'],
+                    'summary' => 'Ringkasan singkat untuk ' . $c['name'],
+                    'content' => '<p>Ini adalah <strong>contoh artikel</strong> untuk kategori <em>' . $c['name'] . '</em>. Silakan edit dari menu admin nanti.</p><ol><li>Langkah 1</li><li>Langkah 2</li><li>Langkah 3</li></ol>',
+                    'status' => 'published',
+                    'tags' => ['contoh', 'awal'],
+                    'is_pinned' => false,
+                ]
+            );
+        }
+        $this->command->info('Seeder selesai: Departments, Divisions, Roles, Positions, Users, KB.');
     }
 }

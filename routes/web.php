@@ -11,7 +11,7 @@ use App\Http\Controllers\{
     TicketHeadController,
     MasterDivisionController,
     MasterPositionController,
-    TicketPrioritiesController,
+    TicketPriorityController,
     PdfController,
     MasterSubMenuController,
     MasterSiteController,
@@ -46,7 +46,7 @@ Route::middleware(['auth', 'verified', 'role:1,2'])->group(function () {
         Route::resource('/sub-menus', MasterSubMenuController::class);
         Route::resource('/divisions', MasterDivisionController::class);
         Route::resource('/positions', MasterPositionController::class);
-        Route::resource('/priorities', TicketPrioritiesController::class);
+        Route::resource('/priorities', TicketPriorityController::class);
         Route::resource('/sites', MasterSiteController::class);
     });
 
@@ -59,16 +59,16 @@ Route::middleware(['auth', 'verified', 'role:1,2'])->group(function () {
         Route::get('tickets/export', [App\Http\Controllers\Report\TicketReportController::class, 'export'])->name('tickets.export'); // export
     });
 
-    // Route::prefix('knowledge-base')->name('kb.')->group(function () {
-    //     Route::get('/', [KnowledgeBaseController::class, 'index'])->name('index');
-    //     Route::get('/{category:slug}/create', [KnowledgeBaseController::class, 'create'])->name('article.create');
-    //     Route::post('/{category:slug}', [KnowledgeBaseController::class, 'store'])->name('article.store');
-    //     Route::get('/{category:slug}/{article:slug}/edit', [KnowledgeBaseController::class, 'edit'])->name('article.edit');
-    //     Route::put('/{category:slug}/{article:slug}', [KnowledgeBaseController::class, 'update'])->name('article.update');
-    //     Route::delete('/{category:slug}/{article:slug}', [KnowledgeBaseController::class, 'destroy'])->name('article.destroy');
-    // });
-    // Route::post('/kb-upload-image', [KnowledgeBaseController::class, 'uploadImage'])->name('kb.image.upload');
-    // Route::post('/kb/tinymce-image-upload', [KnowledgeBaseController::class, 'tinymceUpload'])->name('kb.tinymce.upload');
+    Route::prefix('knowledge-base')->name('kb.')->group(function () {
+        Route::get('/', [KnowledgeBaseController::class, 'index'])->name('index');
+        Route::get('/{category:slug}/create', [KnowledgeBaseController::class, 'create'])->name('article.create');
+        Route::post('/{category:slug}', [KnowledgeBaseController::class, 'store'])->name('article.store');
+        Route::get('/{category:slug}/{article:slug}/edit', [KnowledgeBaseController::class, 'edit'])->name('article.edit');
+        Route::put('/{category:slug}/{article:slug}', [KnowledgeBaseController::class, 'update'])->name('article.update');
+        Route::delete('/{category:slug}/{article:slug}', [KnowledgeBaseController::class, 'destroy'])->name('article.destroy');
+    });
+    Route::post('/kb-upload-image', [KnowledgeBaseController::class, 'uploadImage'])->name('kb.image.upload');
+    Route::post('/kb/tinymce-image-upload', [KnowledgeBaseController::class, 'tinymceUpload'])->name('kb.tinymce.upload');
 
     Route::delete('/approval-rules/{id}', [App\Http\Controllers\TicketApprovalRuleController::class, 'destroy'])
         ->name('approval-rules.destroy');
@@ -131,18 +131,18 @@ Route::middleware(['auth', 'verified'])->group(function () {
             ->name('details.line');
     });
 
-    // Route::prefix('knowledge-base')->name('kb.')->group(
-    //     function () {
-    //         Route::get('/', [KnowledgeBaseController::class, 'index'])->name('index');
+    Route::prefix('knowledge-base')->name('kb.')->group(
+        function () {
+            Route::get('/', [KnowledgeBaseController::class, 'index'])->name('index');
 
-    //         Route::get('/{category:slug}', [KnowledgeBaseController::class, 'category'])->name('category');
-    //         Route::get('/{category:slug}/{article:slug}', [KnowledgeBaseController::class, 'show'])->name('article');
+            Route::get('/{category:slug}', [KnowledgeBaseController::class, 'category'])->name('category');
+            Route::get('/{category:slug}/{article:slug}', [KnowledgeBaseController::class, 'show'])->name('article');
 
-    //         Route::post('/{category:slug}/{article:slug}/feedback', [KnowledgeBaseController::class, 'feedback'])
-    //             ->middleware('throttle:20,1')
-    //             ->name('article.feedback');
-    //     }
-    // );
+            Route::post('/{category:slug}/{article:slug}/feedback', [KnowledgeBaseController::class, 'feedback'])
+                ->middleware('throttle:20,1')
+                ->name('article.feedback');
+        }
+    );
 
     Route::get('/pdf/generate/{ticket:slug}', [PdfController::class, 'generate'])
         ->name('pdf.generate');

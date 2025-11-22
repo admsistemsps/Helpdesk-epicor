@@ -217,7 +217,7 @@ $avatar = $avatarPath
         x-transition>Information</p>
     <div x-show="!sidebarOpen" x-transition class="border-t-2 border-gray-700 my-2 hidden md:block"></div>
 
-    <a href=""
+    <a href="{{ route('kb.index') }}"
         class="flex items-center px-2.5 py-2 rounded-md hover:bg-gray-800 transition 
         {{ request()->routeIs('kb.index') 
         ? 'bg-gray-800 text-white font-semibold border-l-4 border-white' 

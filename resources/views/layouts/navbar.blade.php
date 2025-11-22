@@ -1,5 +1,5 @@
 <!-- resources/views/layouts/navbar.blade.php -->
-<div class="flex items-center justify-between w-full h-full px-2 sm:px-4">
+<div class="flex items-center justify-between w-full h-full px-2 sm:px-4 md:px-6 my-2">
     <!-- Hamburger Button (Mobile Only) -->
     <button @click="sidebarOpen = !sidebarOpen" class="md:hidden text-gray-700 hover:text-gray-900 focus:outline-none mr-2">
         <i class="fa-solid fa-bars text-lg"></i>
