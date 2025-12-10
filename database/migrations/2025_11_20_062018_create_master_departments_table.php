@@ -21,7 +21,7 @@ return new class extends Migration
         });
 
         Schema::table('users', function (Blueprint $table) {
-            $table->foreign('department_id')->references('id')->on('master_departments')->onDelete('cascade');
+            $table->foreign('master_department_id')->references('id')->on('master_departments')->onDelete('cascade');
         });
     }
 

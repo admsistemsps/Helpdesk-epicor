@@ -36,7 +36,7 @@ class TicketApprovalRule extends Model
 
     public function menu()
     {
-        return $this->belongsTo(MasterMenu::class);
+        return $this->belongsTo(MasterMenu::class, 'menu_id');
     }
 
     public function ticketApprovals()

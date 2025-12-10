@@ -16,19 +16,19 @@ class MasterPosition extends Model
         'name',
         'description',
         'jabatan',
-        'division_id',
+        'master_division_id',
         'level',
-        'department_id',
+        'master_department_id',
     ];
 
     public function division()
     {
-        return $this->belongsTo(MasterDivision::class);
+        return $this->belongsTo(MasterDivision::class, 'master_division_id');
     }
 
     public function role()
     {
-        return $this->belongsTo(MasterRole::class);
+        return $this->belongsTo(MasterRole::class, 'role_id');
     }
 
     public function users()
@@ -58,6 +58,6 @@ class MasterPosition extends Model
 
     public function department()
     {
-        return $this->belongsTo(MasterDepartment::class);
+        return $this->belongsTo(MasterDepartment::class, 'master_department_id');
     }
 }

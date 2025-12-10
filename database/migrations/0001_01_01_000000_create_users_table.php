@@ -20,10 +20,10 @@ return new class extends Migration
             $table->string('password');
             $table->string('profile_photo_path', 2048)->nullable();
             $table->enum('status', ['active', 'inactive', 'suspend'])->default('active');
-            $table->unsignedBigInteger('role_id')->nullable();
-            $table->unsignedBigInteger('position_id')->nullable();
-            $table->unsignedBigInteger('division_id')->nullable();
-            $table->unsignedBigInteger('department_id')->nullable();
+            $table->unsignedBigInteger('master_role_id')->nullable();
+            $table->unsignedBigInteger('master_position_id')->nullable();
+            $table->unsignedBigInteger('master_division_id')->nullable();
+            $table->unsignedBigInteger('master_department_id')->nullable();
             $table->rememberToken();
             $table->timestamp('last_login_at')->nullable();
             $table->timestamps();

@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
-class TicketPrioritiesController extends Controller
+class TicketPriorityController extends Controller
 {
     /**
      * Display a listing of the resource.

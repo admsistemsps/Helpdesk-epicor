@@ -23,7 +23,7 @@ class RoleMiddleware
         }
 
         // Ambil role_id user
-        $roleId = $user->role_id;
+        $roleId = $user->master_role_id;
 
         // Jika termasuk role yang diizinkan
         if (in_array($roleId, $roles)) {

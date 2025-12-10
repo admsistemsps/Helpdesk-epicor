@@ -44,10 +44,10 @@ class DatabaseSeeder extends Seeder
         // Divisions
         // ========================
         $divisions = [
-            ['code' => 'WRH', 'name' => 'Warehouse', 'department_id' => 2],
-            ['code' => 'PRC', 'name' => 'Purchasing', 'department_id' => 4],
-            ['code' => 'SNM', 'name' => 'Sales', 'department_id' => 5],
-            ['code' => 'LOG', 'name' => 'Logistik', 'department_id' => 2],
+            ['code' => 'WRH', 'name' => 'Warehouse', 'master_department_id' => 2],
+            ['code' => 'PRC', 'name' => 'Purchasing', 'master_department_id' => 4],
+            ['code' => 'SNM', 'name' => 'Sales', 'master_department_id' => 5],
+            ['code' => 'LOG', 'name' => 'Logistik', 'master_department_id' => 2],
         ];
 
         foreach ($divisions as $div) {
@@ -78,19 +78,19 @@ class DatabaseSeeder extends Seeder
         // Positions
         // ========================
         $positions = [
-            ['name' => 'Admin Gudang Sparepart', 'division_id' => 1, 'department_id' => 2, 'jabatan' => 'Staff/Admin', 'level' => 1],
-            ['name' => 'SPV Gudang', 'division_id' => 1, 'department_id' => 2, 'jabatan' => 'Supervisor', 'level' => 2],
-            ['name' => 'Manajer Gudang', 'division_id' => null, 'department_id' => 2, 'jabatan' => 'Manajer', 'level' => 3],
-            ['name' => 'JM Finance', 'division_id' => null, 'department_id' => 3, 'jabatan' => 'Junior Manajer', 'level' => 9],
-            ['name' => 'Admin Sistem', 'division_id' => null, 'department_id' => 1, 'jabatan' => 'Staff/Admin', 'level' => 1],
-            ['name' => 'IT Dev', 'division_id' => null, 'department_id' => 1, 'jabatan' => 'Staff/Admin', 'level' => 1],
-            ['name' => 'Manajer PTSI', 'division_id' => null, 'department_id' => 1, 'jabatan' => 'Manajer', 'level' => 3],
-            ['name' => 'SPV Purchasing', 'division_id' => 2, 'department_id' => 4, 'jabatan' => 'Supervisor', 'level' => 2],
-            ['name' => 'Staff Purchasing', 'division_id' => 2, 'department_id' => 4, 'jabatan' => 'Staff/Admin', 'level' => 1],
-            ['name' => 'SPV Sales', 'division_id' => 3, 'department_id' => 5, 'jabatan' => 'Supervisor', 'level' => 2],
-            ['name' => 'Staff Sales', 'division_id' => 3, 'department_id' => 5, 'jabatan' => 'Staff/Admin', 'level' => 1],
-            ['name' => 'SPV Logistik', 'division_id' => 4, 'department_id' => 2, 'jabatan' => 'Supervisor', 'level' => 2],
-            ['name' => 'Staff Logistik', 'division_id' => 4, 'department_id' => 2, 'jabatan' => 'Staff/Admin', 'level' => 1],
+            ['name' => 'Admin Gudang Sparepart', 'master_division_id' => 1, 'master_department_id' => 2, 'jabatan' => 'Staff/Admin', 'level' => 1],
+            ['name' => 'SPV Gudang', 'master_division_id' => 1, 'master_department_id' => 2, 'jabatan' => 'Supervisor', 'level' => 2],
+            ['name' => 'Manajer Gudang', 'master_division_id' => null, 'master_department_id' => 2, 'jabatan' => 'Manajer', 'level' => 3],
+            ['name' => 'JM Finance', 'master_division_id' => null, 'master_department_id' => 3, 'jabatan' => 'Junior Manajer', 'level' => 9],
+            ['name' => 'Admin Sistem', 'master_division_id' => null, 'master_department_id' => 1, 'jabatan' => 'Staff/Admin', 'level' => 1],
+            ['name' => 'IT Dev', 'master_division_id' => null, 'master_department_id' => 1, 'jabatan' => 'Staff/Admin', 'level' => 1],
+            ['name' => 'Manajer PTSI', 'master_division_id' => null, 'master_department_id' => 1, 'jabatan' => 'Manajer', 'level' => 3],
+            ['name' => 'SPV Purchasing', 'master_division_id' => 2, 'master_department_id' => 4, 'jabatan' => 'Supervisor', 'level' => 2],
+            ['name' => 'Staff Purchasing', 'master_division_id' => 2, 'master_department_id' => 4, 'jabatan' => 'Staff/Admin', 'level' => 1],
+            ['name' => 'SPV Sales', 'master_division_id' => 3, 'master_department_id' => 5, 'jabatan' => 'Supervisor', 'level' => 2],
+            ['name' => 'Staff Sales', 'master_division_id' => 3, 'master_department_id' => 5, 'jabatan' => 'Staff/Admin', 'level' => 1],
+            ['name' => 'SPV Logistik', 'master_division_id' => 4, 'master_department_id' => 2, 'jabatan' => 'Supervisor', 'level' => 2],
+            ['name' => 'Staff Logistik', 'master_division_id' => 4, 'master_department_id' => 2, 'jabatan' => 'Staff/Admin', 'level' => 1],
         ];
 
         foreach ($positions as $index => $pos) {
@@ -135,10 +135,10 @@ class DatabaseSeeder extends Seeder
                 'email' => 'spsadmin@gmail.com',
                 'password' => Hash::make('SuperAdmin123!'),
                 'status' => 'active',
-                'role_id' => 1, // Super Admin
-                'position_id' => 7, // Manajer PTSI
-                'division_id' => null,
-                'department_id' => 1,
+                'master_role_id' => 1, // Super Admin
+                'master_position_id' => 7, // Manajer PTSI
+                'master_division_id' => null,
+                'master_department_id' => 1,
                 'master_site_id' => 1,
             ],
             [
@@ -147,10 +147,10 @@ class DatabaseSeeder extends Seeder
                 'email' => 'scm001@gmail.com',
                 'password' => Hash::make('admin123'),
                 'status' => 'active',
-                'role_id' => 3, // User
-                'position_id' => 1, // Admin Gudang Sparepart
-                'division_id' => 1,
-                'department_id' => 2,
+                'master_role_id' => 3, // User
+                'master_position_id' => 1, // Admin Gudang Sparepart
+                'master_division_id' => 1,
+                'master_department_id' => 2,
                 'master_site_id' => 1,
             ],
             [
@@ -159,10 +159,10 @@ class DatabaseSeeder extends Seeder
                 'email' => 'scm002@gmail.com',
                 'password' => Hash::make('admin123'),
                 'status' => 'active',
-                'role_id' => 3,
-                'position_id' => 2, // SPV Gudang
-                'division_id' => 1,
-                'department_id' => 2,
+                'master_role_id' => 3,
+                'master_position_id' => 2, // SPV Gudang
+                'master_division_id' => 1,
+                'master_department_id' => 2,
                 'master_site_id' => 1,
             ],
             [
@@ -171,10 +171,10 @@ class DatabaseSeeder extends Seeder
                 'email' => 'scm003@gmail.com',
                 'password' => Hash::make('admin123'),
                 'status' => 'active',
-                'role_id' => 3,
-                'position_id' => 3, // Manajer Gudang
-                'division_id' => null,
-                'department_id' => 2,
+                'master_role_id' => 3,
+                'master_position_id' => 3, // Manajer Gudang
+                'master_division_id' => null,
+                'master_department_id' => 2,
                 'master_site_id' => 1,
             ],
             [
@@ -183,10 +183,10 @@ class DatabaseSeeder extends Seeder
                 'email' => 'scm004@gmail.com',
                 'password' => Hash::make('admin123'),
                 'status' => 'active',
-                'role_id' => 3,
-                'position_id' => 13,
-                'division_id' => 4,
-                'department_id' => 2,
+                'master_role_id' => 3,
+                'master_position_id' => 13,
+                'master_division_id' => 4,
+                'master_department_id' => 2,
                 'master_site_id' => 1,
             ],
             [
@@ -195,10 +195,10 @@ class DatabaseSeeder extends Seeder
                 'email' => 'scm005@gmail.com',
                 'password' => Hash::make('admin123'),
                 'status' => 'active',
-                'role_id' => 3,
-                'position_id' => 12,
-                'division_id' => 4,
-                'department_id' => 2,
+                'master_role_id' => 3,
+                'master_position_id' => 12,
+                'master_division_id' => 4,
+                'master_department_id' => 2,
                 'master_site_id' => 1,
             ],
             [
@@ -207,10 +207,10 @@ class DatabaseSeeder extends Seeder
                 'email' => 'snm001@gmail.com',
                 'password' => Hash::make('admin123'),
                 'status' => 'active',
-                'role_id' => 3,
-                'position_id' => 10,
-                'division_id' => 3,
-                'department_id' => 5,
+                'master_role_id' => 3,
+                'master_position_id' => 10,
+                'master_division_id' => 3,
+                'master_department_id' => 5,
                 'master_site_id' => 1,
             ],
             [
@@ -219,10 +219,10 @@ class DatabaseSeeder extends Seeder
                 'email' => 'fac001@gmail.com',
                 'password' => Hash::make('admin123'),
                 'status' => 'active',
-                'role_id' => 4, // JM
-                'position_id' => 4, // JM Finance
-                'division_id' => null,
-                'department_id' => 3,
+                'master_role_id' => 4, // JM
+                'master_position_id' => 4, // JM Finance
+                'master_division_id' => null,
+                'master_department_id' => 3,
                 'master_site_id' => 1,
             ],
             [
@@ -231,10 +231,10 @@ class DatabaseSeeder extends Seeder
                 'email' => 'sis003@gmail.com',
                 'password' => Hash::make('admin123'),
                 'status' => 'active',
-                'role_id' => 2, // Admin Sistem
-                'position_id' => 5, // Admin Sistem
-                'division_id' => null,
-                'department_id' => 1,
+                'master_role_id' => 2, // Admin Sistem
+                'master_position_id' => 5, // Admin Sistem
+                'master_division_id' => null,
+                'master_department_id' => 1,
                 'master_site_id' => 1,
             ],
         ];
@@ -269,12 +269,12 @@ class DatabaseSeeder extends Seeder
             [
                 'name' => 'Revisi PR',
                 'description' => 'Revisi Permintaan',
-                'menu_id' => 1,
+                'master_menu_id' => 1,
             ],
             [
                 'name' => 'Unshipped DO',
                 'description' => 'Batalkan Kiriman',
-                'menu_id' => 2,
+                'master_menu_id' => 2,
             ],
         ];
 

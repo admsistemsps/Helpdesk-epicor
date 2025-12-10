@@ -106,7 +106,7 @@ $avatar = $avatarPath
         </div>
     </div>
 
-    @if($user->role_id == 1 || $user->role_id == 2)
+    @if($user->master_role_id == 1 || $user->master_role_id == 2)
     <p class="text-[10px] uppercase tracking-wider text-gray-500 mt-2 mb-1 overflow-hidden"
         x-show="sidebarOpen"
         x-transition>Setting</p>

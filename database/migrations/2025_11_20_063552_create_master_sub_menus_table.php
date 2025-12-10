@@ -16,9 +16,9 @@ return new class extends Migration
             $table->string('name');
             $table->string('description');
             $table->string('placeholder')->nullable();
-            $table->unsignedBigInteger('menu_id')->nullable();
+            $table->unsignedBigInteger('master_menu_id')->nullable();
 
-            $table->foreign('menu_id')->references('id')->on('master_menus');
+            $table->foreign('master_menu_id')->references('id')->on('master_menus');
             $table->timestamps();
             $table->softDeletes();
         });

@@ -21,7 +21,7 @@ class MasterSubMenu extends Model
 
     public function menu()
     {
-        return $this->belongsTo(MasterMenu::class);
+        return $this->belongsTo(MasterMenu::class, 'master_menu_id');
     }
 
     public function tickets()

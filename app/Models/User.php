@@ -28,10 +28,10 @@ class User extends Authenticatable
         'password',
         'profile_photo_path',
         'status',
-        'role_id',
-        'position_id',
-        'division_id',
-        'department_id',
+        'master_role_id',
+        'master_position_id',
+        'master_division_id',
+        'master_department_id',
         'master_site_id',
     ];
 
@@ -60,19 +60,19 @@ class User extends Authenticatable
 
     public function role()
     {
-        return $this->belongsTo(MasterRole::class);
+        return $this->belongsTo(MasterRole::class, 'master_role_id');
     }
     public function position()
     {
-        return $this->belongsTo(MasterPosition::class);
+        return $this->belongsTo(MasterPosition::class, 'master_position_id');
     }
     public function division()
     {
-        return $this->belongsTo(MasterDivision::class);
+        return $this->belongsTo(MasterDivision::class, 'master_division_id');
     }
     public function department()
     {
-        return $this->belongsTo(MasterDepartment::class);
+        return $this->belongsTo(MasterDepartment::class, 'master_department_id');
     }
     public function site()
     {

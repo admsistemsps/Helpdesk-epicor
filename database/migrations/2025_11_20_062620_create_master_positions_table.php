@@ -15,19 +15,19 @@ return new class extends Migration
             $table->id();
             $table->string('name');
             $table->string('description')->nullable();
-            $table->unsignedBigInteger('division_id')->nullable();
-            $table->unsignedBigInteger('department_id')->nullable();
+            $table->unsignedBigInteger('master_division_id')->nullable();
+            $table->unsignedBigInteger('master_department_id')->nullable();
             $table->string('jabatan')->nullable();
             $table->decimal('level')->nullable();
             $table->timestamps();
             $table->softDeletes();
 
-            $table->foreign('division_id')->references('id')->on('master_divisions')->onDelete('cascade');
-            $table->foreign('department_id')->references('id')->on('master_departments')->onDelete('cascade');
+            $table->foreign('master_division_id')->references('id')->on('master_divisions')->onDelete('cascade');
+            $table->foreign('master_department_id')->references('id')->on('master_departments')->onDelete('cascade');
         });
 
         Schema::table('users', function (Blueprint $table) {
-            $table->foreign('position_id')->references('id')->on('master_positions')->onDelete('cascade');
+            $table->foreign('master_position_id')->references('id')->on('master_positions')->onDelete('cascade');
         });
     }
 

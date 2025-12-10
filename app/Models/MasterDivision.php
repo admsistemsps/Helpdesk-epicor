@@ -16,12 +16,12 @@ class MasterDivision extends Model
     protected $fillable = [
         'code',
         'name',
-        'department_id',
+        'master_department_id',
     ];
 
     public function department()
     {
-        return $this->belongsTo(MasterDepartment::class);
+        return $this->belongsTo(MasterDepartment::class, 'master_department_id');
     }
 
     public function positions()

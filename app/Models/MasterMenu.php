@@ -15,8 +15,8 @@ class MasterMenu extends Model
     protected $fillable = [
         'name',
         'description',
-        'division_id',
-        'department_id',
+        'master_division_id',
+        'master_department_id',
     ];
 
     public function roles()
@@ -26,7 +26,7 @@ class MasterMenu extends Model
 
     public function approvalRules()
     {
-        return $this->hasMany(TicketApprovalRule::class);
+        return $this->hasMany(TicketApprovalRule::class, 'menu_id');
     }
 
     public function tickets()

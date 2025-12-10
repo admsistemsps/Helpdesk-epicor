@@ -21,7 +21,7 @@ return new class extends Migration
         });
 
         Schema::table('users', function (Blueprint $table) {
-            $table->unsignedBigInteger('master_site_id')->after('department_id')->nullable();
+            $table->unsignedBigInteger('master_site_id')->after('master_department_id')->nullable();
             $table->foreign('master_site_id')->references('id')->on('master_sites')->onDelete('cascade');
         });
     }

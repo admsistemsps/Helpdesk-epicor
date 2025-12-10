@@ -15,15 +15,15 @@ return new class extends Migration
             $table->id();
             $table->string('code');
             $table->string('name');
-            $table->unsignedBigInteger('department_id')->nullable();
+            $table->unsignedBigInteger('master_department_id')->nullable();
             $table->timestamps();
             $table->softDeletes();
 
-            $table->foreign('department_id')->references('id')->on('master_departments')->onDelete('cascade');
+            $table->foreign('master_department_id')->references('id')->on('master_departments')->onDelete('cascade');
         });
 
         Schema::table('users', function (Blueprint $table) {
-            $table->foreign('division_id')->references('id')->on('master_divisions')->onDelete('cascade');
+            $table->foreign('master_division_id')->references('id')->on('master_divisions')->onDelete('cascade');
         });
     }
 
